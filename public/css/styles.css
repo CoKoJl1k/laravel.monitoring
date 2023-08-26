@@ -1,0 +1,58 @@
+.grid {
+    display: grid;
+   /* grid-template-columns:0.8fr 1.5fr 3.5fr 0.5fr 0.5fr 0.8fr 0.8fr;*/
+  /*  grid-template-columns:0.8fr 1.5fr 3.5fr 0.5fr 0.5fr 0.8fr 0.8fr;*/
+    /* 13 in old*/
+   grid-template-columns:repeat(13,200px);
+}
+
+.cell {
+    /*background-color: #f9f9f9;*/
+/*    padding: 5px;*/
+    border: 1px solid;
+    display: grid;
+    grid-template-columns:200px;
+    grid-template-rows:40px;
+  /*  grid-template-rows:repeat(3,1fr);*/
+    font-size: 10px;
+ /*   grid-template-columns:0.8fr 1.5fr 3.5fr 0.5fr 0.5fr 0.8fr 0.8fr;*/
+/*    text-align: left;*/
+    font-family: sans-serif;
+}
+
+.cell-first {
+ /*  border-top: 1px solid;
+    border-left: 1px solid;*/
+    word-wrap: break-word;
+    display: grid;
+    grid-template-columns:180px 20px;
+    grid-template-rows:15px;
+    font-size: 12px;
+    text-align: left;
+    font-family: sans-serif;
+}
+.cell-second {
+    display: grid;
+    grid-template-columns:55px 140px;
+    grid-template-rows:55px;
+    font-size: 8px;
+    text-align: left;
+    font-family: sans-serif;
+}
+.cell-third {
+    display: grid;
+    grid-template-columns:50px 150px;
+    grid-template-rows:20px;
+    font-size: 12px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.cell-name {
+    word-wrap: break-word;
+}
+
+.btn .btn-primary .btn-lg{
+    padding-left: 40px;
+}
+

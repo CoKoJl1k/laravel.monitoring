@@ -52,9 +52,10 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
-
-    'asset_url' => env('ASSET_URL', null),
+   //'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://laravel.monitoring'),
+  //  'asset_url' => env('ASSET_URL', null),
+    'asset_url' => env('APP_URL', '/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -79,7 +80,6 @@ return [
     | to any of the locales which will be supported by the application.
     |
     */
-
     'locale' => 'en',
 
     /*
