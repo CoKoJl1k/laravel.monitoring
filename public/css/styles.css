@@ -12,7 +12,7 @@
     border: 1px solid;
     display: grid;
     grid-template-columns:200px;
-    grid-template-rows:40px;
+    grid-template-rows:30px;
   /*  grid-template-rows:repeat(3,1fr);*/
     font-size: 10px;
  /*   grid-template-columns:0.8fr 1.5fr 3.5fr 0.5fr 0.5fr 0.8fr 0.8fr;*/
@@ -26,22 +26,46 @@
     word-wrap: break-word;
     display: grid;
     grid-template-columns:180px 20px;
-    grid-template-rows:15px;
+    grid-template-rows:12px;
     font-size: 12px;
     text-align: left;
     font-family: sans-serif;
 }
 .cell-second {
     display: grid;
-    grid-template-columns:55px 140px;
-    grid-template-rows:55px;
+    grid-template-columns:70px 130px;
+    grid-template-rows:60px;
     font-size: 8px;
     text-align: left;
     font-family: sans-serif;
 }
+
+.cell-details {
+    display: grid;
+    grid-template-columns:40px 40px 40px;
+    grid-template-rows: 30px 30px;
+    text-align: center;
+    font-size: 12px;
+}
+.status-connect{
+    padding-left: 10px;
+}
+.status-cam{
+    padding-left: 10px;
+}
+/*
+.reset{
+    padding-left: 10px;
+}
+.server {
+    font-size: 12px;
+}
+.reset {
+    font-size: 12px;
+}*/
 .cell-third {
     display: grid;
-    grid-template-columns:50px 150px;
+    grid-template-columns:60px 140px;
     grid-template-rows:20px;
     font-size: 12px;
     text-align: center;

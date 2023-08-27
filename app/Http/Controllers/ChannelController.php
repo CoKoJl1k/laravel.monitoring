@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Channel;
+use App\Repositories\ChannelRepository;
+use App\Services\ChannelService;
 use Illuminate\Http\Request;
 
 class ChannelController extends Controller
@@ -12,10 +14,17 @@ class ChannelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ChannelRepository $channelRepository,ChannelService $channelService)
     {
-       // $channels = Channel::all()->orderBy('name')->desc;
-        $channels = Channel::orderBy('name')->get();
+        $channels = $channelRepository->getChannelsDecrypt();
+        $channels =collect($channels);
+
+        $channels = $channels->map(function ($channel) use($channelService) {
+            return $channelService->getDetails($channel);
+        });
+
+        //dd($channels);
+        // $channels = Channel::orderBy('name')->get();
         return view('channel.index', ['channels' => $channels]);
 
     }
