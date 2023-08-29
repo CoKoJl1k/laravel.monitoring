@@ -6,6 +6,7 @@ use App\Models\Channel;
 use App\Repositories\ChannelRepository;
 use App\Services\ChannelService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ChannelController extends Controller
 {
@@ -22,7 +23,6 @@ class ChannelController extends Controller
         $channels = $channels->map(function ($channel) use($channelService) {
             return $channelService->getDetails($channel);
         });
-
         //dd($channels);
         // $channels = Channel::orderBy('name')->get();
         return view('channel.index', ['channels' => $channels]);
@@ -69,7 +69,8 @@ class ChannelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $channel = Channel::find($id);
+        return view('channel.edit', ['channel' => $channel]);
     }
 
     /**
@@ -81,7 +82,10 @@ class ChannelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $channel = Channel::findOrFail($id);
+        $channel->name = $request->input('name');
+        $channel->save();
+        return redirect()->route('channel.index');
     }
 
     /**
@@ -90,8 +94,22 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,ChannelRepository $channelRepository,ChannelService $channelService)
     {
-        //
+        $channel = Channel::find($id);
+        if ($channel) {
+            $channel->delete();
+        }
+        return redirect()->route('channel.index');
+    }
+
+
+    public function play(Request $request)
+    {
+        $channel = explode('|', $request->channel_name);
+        $channel_name = $channel[0] ? trim($channel[0]) : '';
+        // select from channels where url like '$channel_name'  170 serve
+        $channel_url = 'http://178.124.141.178:1935/live/BT1.stream/playlist.m3u8?hash=1f062a971d4dfdb685489e52e52b164f';
+        return view('channel.play', ['channel_url' => $channel_url]);
     }
 }

@@ -79,4 +79,6 @@
 .btn .btn-primary .btn-lg{
     padding-left: 40px;
 }
-
+.image-channel{
+    cursor: pointer;
+}

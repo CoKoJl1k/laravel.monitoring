@@ -1,36 +1,39 @@
 <x-app-layout>
 
     <x-slot name="header">
-    </x-slot>
-    <div class="py-12">
 
+    </x-slot>
+
+    <div class="py-12">
         <div>
             <div class="bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="grid">
-
                         @foreach($channels as $channel)
-
                             <div class="cell">
-
                                 <div class="cell-first">
-                                    <div class="cell-name"><b>{{$channel->name}}</b></div>
-
+                                    <div class="cell-name"><a href="{{ route('channel.edit', $channel->id) }}"><b>{{$channel->name}}</b></a></div>
                                     <div class="cell-delete">
-                                        <a href="#"><img class="icon-delete" title="Удалить канал"
-                                                         src="{{ asset('images/icons/cross.png') }}">
+
+                                        <a href="#">
+                                            <form action="{{ route('channel.destroy', $channel->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit">
+                                                    <img class="icon-delete" title="Удалить канал" src="{{ asset('images/icons/cross.png') }}">
+                                                </button>
+                                            </form>
                                         </a>
                                     </div>
                                 </div>
 
                                 <div class="cell-second">
-                                    <div id="ch_screenshot_div_{{$channel->screenshot_name}}" style="width:55pt;height:37pt">
-                                        <img  height="45pt" src="http://86.57.251.22/screenshots/{{$channel->screenshot_name}}"
+                                    <div id="ch_screenshot_div_{{$channel->screenshot_name}}" onclick="openPopupWindow('{{$channel->name}}')" style="width:55pt;height:37pt">
+                                        <img class="image-channel" height="45pt" src="http://86.57.251.22/screenshots/{{$channel->screenshot_name}}"
                                              onerror="imgError('{{$channel->screenshot_name}}')">
                                     </div>
 
                                     <div class="cell-details">
-
                                         <div class="status-connect">
                                             <img title="{{$channel->ready ? 'Работает' : 'Не работает'}}" height="20px"
                                                  width="20px" src="images/icons/{{$channel->ready ? 'connect.png' : 'disconnect.png'}}"/>
@@ -61,11 +64,13 @@
                                         <div class="">
                                             <p>0</p>
                                         </div>
+
                                         <div class="server">
                                             {{$channel->server}}
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <div class="cell-third">
                                     <div class="cell-bitrate">
@@ -75,11 +80,9 @@
                                         <b>{{$channel->updated_at}}</b>
                                     </div>
                                 </div>
-
                             </div>
                         @endforeach
                     </div>
-
                 </div>
             </div>
         </div>
