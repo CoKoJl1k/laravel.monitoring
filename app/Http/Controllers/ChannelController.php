@@ -15,18 +15,14 @@ class ChannelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ChannelRepository $channelRepository,ChannelService $channelService)
+    public function index(ChannelRepository $channelRepository, ChannelService $channelService)
     {
         $channels = $channelRepository->getChannelsDecrypt();
         $channels =collect($channels);
-
         $channels = $channels->map(function ($channel) use($channelService) {
             return $channelService->getDetails($channel);
         });
-        //dd($channels);
-        // $channels = Channel::orderBy('name')->get();
         return view('channel.index', ['channels' => $channels]);
-
     }
 
     /**
@@ -84,6 +80,14 @@ class ChannelController extends Controller
     {
         $channel = Channel::findOrFail($id);
         $channel->name = $request->input('name');
+        $channel->server = $request->input('server');
+        $channel->output = $request->input('output');
+        $channel->stream = $request->input('stream');
+        $channel->reset_name = $request->input('reset_name');
+        $channel->reser_host = $request->input('reser_host');
+        $channel->screenshot_name = $request->input('screenshot_name');
+        $channel->getaway = $request->input('getaway');
+        $channel->astra_name = $request->input('astra_name');
         $channel->save();
         return redirect()->route('channel.index');
     }
@@ -94,7 +98,7 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,ChannelRepository $channelRepository,ChannelService $channelService)
+    public function destroy($id)
     {
         $channel = Channel::find($id);
         if ($channel) {
@@ -108,8 +112,14 @@ class ChannelController extends Controller
     {
         $channel = explode('|', $request->channel_name);
         $channel_name = $channel[0] ? trim($channel[0]) : '';
-        // select from channels where url like '$channel_name'  170 serve
-        $channel_url = 'http://178.124.141.178:1935/live/BT1.stream/playlist.m3u8?hash=1f062a971d4dfdb685489e52e52b164f';
+        // todo KOMEDIA_TV doesnt works
+        $channel = DB::connection('mysql170')
+            ->table('channels')
+            ->whereRaw("INSTR(url, '$channel_name') > 0")
+            //->where("url", 'like', '%'.$channel_name.'%')
+            ->orderBy('id','desc')->limit(1)->get();
+        $channel_url = $channel[0]->url ?? '';
+        $channel_url = $channel_url.'?hash='.env('HASH_PLAY_CHANNEL');
         return view('channel.play', ['channel_url' => $channel_url]);
     }
 }

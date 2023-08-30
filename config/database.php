@@ -63,6 +63,15 @@ return [
             ]) : [],
         ],
 
+        'mysql170' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST_170', '127.0.0.1'),
+            'port' => env('DB_PORT_170', '3306'),
+            'database' => env('DB_DATABASE_170', 'forge'),
+            'username' => env('DB_USERNAME_170', 'forge'),
+            'password' => env('DB_PASSWORD_170', ''),
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

@@ -12,11 +12,8 @@ class ChannelService
     public function getDetails($channel)
     {
         $exp_channel = explode("|",$channel->stream);
-      //  var_dump($exp_channel);
         $sattellike = $exp_channel[0] ?? '';
         $transponder =  $exp_channel[1] ?? '';
-      //  dd($sattellike);
-       // dd($exp_channel);
         $astra =  $exp_channel[2] ?? '';
         $exp_transcoder = explode("@", $channel->output);
         $trascoder = $exp_transcoder[0] ?? '';
