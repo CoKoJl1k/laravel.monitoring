@@ -1,4 +1,4 @@
-
+console.log(33333);
 function imgError(name) {
     document.getElementById('ch_screenshot_div_'+name).style.backgroundColor = "#FF0000";
 }
