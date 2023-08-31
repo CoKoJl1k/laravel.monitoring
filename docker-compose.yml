@@ -21,7 +21,7 @@ services:
             - ./:/var/www
             - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
         networks:
-            - app-network
+            - monitoring-network
 
     #Nginx Service
     webserver-monitoring:
@@ -35,7 +35,7 @@ services:
             - ./:/var/www
             - ./nginx/conf.d/:/etc/nginx/conf.d/
         networks:
-            - app-network
+            - monitoring-network
 
     #MySQL Service
     db-monitoring:
@@ -50,16 +50,16 @@ services:
             MYSQL_USER: ${DB_USERNAME}
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
             ERVICE_TAGS: dev
-            SERVICE_NAME: mysql
+            SERVICE_NAME: db-monitoring
         volumes:
             - dbdata:/var/lib/mysql/
             - ./mysql/my.cnf:/etc/mysql/my.cnf
         networks:
-            - app-network
+            - monitoring-network
 
 #Docker Networks
 networks:
-    app-network:
+    monitoring-network:
         driver: bridge
 #Volumes
 volumes:
